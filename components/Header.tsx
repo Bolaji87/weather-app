@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <header className="text-center bg-orange-500 py-6 px-4">
+    <header className="text-center bg-white shadow-md border-b border-gray-200 py-6 px-4">
       <h1 className="text-3xl font-extrabold text-stone-800 mb-2">
         Welcome to the Weather App
       </h1>
