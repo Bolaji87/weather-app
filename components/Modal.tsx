@@ -92,11 +92,17 @@ function Modal() {
             />
             <WeatherDetails
               label="Sunrise"
-              value={formatUnixTime(weather.sys.sunrise)}
+              value={
+                weather.sys?.sunset
+                  ? formatUnixTime(weather.sys.sunrise)
+                  : "N?A"
+              }
             />
             <WeatherDetails
               label="Sunset"
-              value={formatUnixTime(weather.sys.sunset)}
+              value={
+                weather.sys?.sunset ? formatUnixTime(weather.sys.sunset) : "N?A"
+              }
             />
             <WeatherDetails
               label="Air Pressure"

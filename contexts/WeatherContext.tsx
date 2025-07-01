@@ -42,7 +42,6 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
       }
 
       setWeather(data);
-      console.log(data);
     } catch (err: any) {
       setWeather(null);
       setError(err.message);
