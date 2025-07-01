@@ -30,15 +30,34 @@ function Modal() {
 
       <div className="z-20 relative mt-10 flex flex-col lg:flex-row items-center lg:items-start gap-6 p-6 bg-white rounded-xl shadow-2xl max-w-5xl w-full transition-all duration-300">
         <button
-          className="absolute top-3 right-3 cursor-pointer p-1 rounded-full text-xl text-red-500 hover:text-red-600"
+          className="absolute top-[1px] right-[6px] sm:top-0.5 sm:right-3 cursor-pointer text-4xl  text-red-500 hover:text-red-600"
           onClick={toggleModal}
         >
           &times;
         </button>
-        {/* Overview */}
+
         <div className="bg-sky-800 text-white w-full max-w-xs p-6 rounded-xl shadow-md">
-          <h2 className="text-2xl font-bold mb-2">
-            {weather.name} <span>{weather.sys?.country}</span>
+          <h2 className="text-xl font-bold mb-2 flex space-x-2 items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 text-white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19.5 10c0 7-7.5 11.25-7.5 11.25S4.5 17 4.5 10a7.5 7.5 0 1115 0z"
+              />
+            </svg>
+            <span>{weather.name} </span> <span>{weather.sys?.country}</span>
           </h2>
           <p className="text-lg mb-1">Temp: {weather.main.temp}°C</p>
           <p className="capitalize mb-4">
@@ -54,7 +73,6 @@ function Modal() {
           </div>
         </div>
 
-        {/* Details */}
         <div className="w-full max-w-md space-y-3">
           <h3 className="text-xl font-semibold text-gray-800">
             Weather Details

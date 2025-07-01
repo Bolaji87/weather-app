@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useCallback,
+} from "react";
 import { WeatherDataTypes } from "@/lib/types";
 
 interface WeatherContextType {
@@ -36,6 +42,7 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
       }
 
       setWeather(data);
+      console.log(data);
     } catch (err: any) {
       setWeather(null);
       setError(err.message);
@@ -54,11 +61,11 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
     setShowModal(true);
   };
 
-  const fetchByCoords = (lat: number, lon: number) => {
+  const fetchByCoords = useCallback((lat: number, lon: number) => {
     fetchWeather(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
     );
-  };
+  }, []);
 
   return (
     <WeatherContext.Provider
