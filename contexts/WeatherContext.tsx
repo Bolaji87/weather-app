@@ -20,6 +20,7 @@ interface WeatherContextType {
   handleSubmit: (event: React.FormEvent) => void;
   fetchByCoords: (lat: number, lon: number) => void;
 }
+const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 
@@ -29,6 +30,8 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const url: string = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   async function fetchWeather(url: string) {
     setLoading(true);
@@ -53,9 +56,7 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!city.trim()) return;
-    fetchWeather(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
-    );
+    fetchWeather(url);
     setCity("");
     setShowModal(true);
   };
