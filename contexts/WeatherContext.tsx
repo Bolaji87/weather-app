@@ -20,9 +20,10 @@ interface WeatherContextType {
   handleSubmit: (event: React.FormEvent) => void;
   fetchByCoords: (lat: number, lon: number) => void;
 }
-const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
+
+const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 
 export function WeatherProvider({ children }: { children: ReactNode }) {
   const [city, setCity] = useState("");
