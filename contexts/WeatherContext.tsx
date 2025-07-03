@@ -23,8 +23,6 @@ interface WeatherContextType {
 
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 
-const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-
 export function WeatherProvider({ children }: { children: ReactNode }) {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<WeatherDataTypes | null>(null);
@@ -32,7 +30,14 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const url: string = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+  if (!apiKey) {
+    throw new Error(
+      "Missing NEXT_PUBLIC_WEATHER_API_KEY in environment variables."
+    );
+  }
 
   async function fetchWeather(url: string) {
     setLoading(true);
@@ -57,14 +62,17 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!city.trim()) return;
+    const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     fetchWeather(url);
     setCity("");
     setShowModal(true);
   };
 
   const fetchByCoords = useCallback((lat: number, lon: number) => {
+    const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
     fetchWeather(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
     );
   }, []);
 
